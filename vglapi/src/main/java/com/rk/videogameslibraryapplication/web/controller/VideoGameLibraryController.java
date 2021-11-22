@@ -20,6 +20,7 @@ import java.util.Set;
  * Controller permettant de modifier la base statique de jeux vidéo présente
  */
 @Controller
+@CrossOrigin
 public class VideoGameLibraryController {
 
     /**
@@ -91,8 +92,9 @@ public class VideoGameLibraryController {
             Optional<VideoGame> rvg = dao.findByIdOrName(integerId, identifier);
 
             if (rvg.isPresent()) {
-                if (!dao.existsByIdOrName(vg.getId(), vg.getName())) {
-                    vg.setId(rvg.get().getId());
+                VideoGame realVideoGame = rvg.get();
+                if ((realVideoGame.getId().equals(vg.getId()) || realVideoGame.getName().equals(vg.getName())) || !dao.existsByIdOrName(vg.getId(), vg.getName())) {
+                    vg.setId(realVideoGame.getId());
                     VideoGame result = dao.save(vg);
                     return result.getId() >= 0 ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 } else {
