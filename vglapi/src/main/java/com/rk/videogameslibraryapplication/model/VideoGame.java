@@ -3,16 +3,12 @@ package com.rk.videogameslibraryapplication.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.net.Inet4Address;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 /**
  * Classe représentant le bean d'un jeu vidéo.
@@ -43,6 +39,7 @@ public class VideoGame {
     /**
      * Description du jeu vidéo
      */
+    @Column(columnDefinition = "LONGVARCHAR")
     private String description;
 
     /**
